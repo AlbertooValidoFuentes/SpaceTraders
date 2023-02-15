@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 
-export default function PantallaLogin() {
+export default function PantallaAutenticacion() {
     return (
         <View style={styles.container}>
             <Text style={styles.tokenText}>Please, introduce your token</Text>
