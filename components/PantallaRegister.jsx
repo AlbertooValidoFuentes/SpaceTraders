@@ -1,13 +1,13 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 
-export default function PantallaAutenticacion() {
+export default function PantallaRegister() {
     return (
         <View style={styles.container}>
-            <Text style={styles.tokenText}>Please, introduce your token</Text>
-            <TextInput placeholder="Introduce your token" style={styles.inputToken}/>
+            <Text style={styles.tokenText}>Please, select your NickName</Text>
+            <TextInput placeholder="Introduce your nickname" style={styles.inputToken}/>
             <Pressable style={styles.button}>
-                <Text style={styles.buttonText}>Login</Text>
+                <Text style={styles.buttonText}>Register</Text>
             </Pressable>
         </View>
     );
