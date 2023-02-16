@@ -7,6 +7,7 @@ import PantallaLogin from './components/PantallaLogin'
 import PantallaRegister from './components/PantallaRegister';
 import PantallaProfile from './components/PantallaProfile';
 import PantallaLoans from './components/PantallaLoans';
+import PantallaShips from './components/PantallaShips';
 
 const Drawer = createDrawerNavigator()
 
@@ -15,7 +16,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Drawer.Navigator initialRouteName='Autenticacion'>
-        <Drawer.Screen name='Autenticacion' component={PantallaLoans}/>
+        <Drawer.Screen name='Autenticacion' component={PantallaShips}/>
       </Drawer.Navigator>
     </NavigationContainer>
   );
