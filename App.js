@@ -5,6 +5,7 @@ import 'react-native-gesture-handler';
 import PantallaAutenticacion from './components/PantallaAutenticacion';
 import PantallaLogin from './components/PantallaLogin'
 import PantallaRegister from './components/PantallaRegister';
+import PantallaProfile from './components/PantallaProfile';
 
 const Drawer = createDrawerNavigator()
 
@@ -13,7 +14,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Drawer.Navigator initialRouteName='Autenticacion'>
-        <Drawer.Screen name='Autenticacion' component={PantallaRegister}/>
+        <Drawer.Screen name='Autenticacion' component={PantallaProfile}/>
       </Drawer.Navigator>
     </NavigationContainer>
   );
