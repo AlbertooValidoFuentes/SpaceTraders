@@ -1,6 +1,20 @@
 import { View, Text, StyleSheet, Image } from "react-native";
+import { useEffect, useState } from 'react'
+import { getUserProfile } from "../service/spaceTraders";
 
 export default function PantallaProfile() {
+
+
+    const [profile, setProfile] = useState({})
+
+    useEffect(() => {
+        const fetchUserAccount = async () => {
+            const userProfile = await getUserProfile()
+            setProfile(userProfile)
+        }
+        fetchUserAccount()
+    }, [])
+
     return (
         <View style={styles.container}>
             <View style={styles.userInfo}>
@@ -8,21 +22,21 @@ export default function PantallaProfile() {
                     <Image source={require('../assets/profileImage.png')} style={styles.profileImage} />
                 </View>
                 <View style={styles.username}>
-                    <Text style={styles.usernameText}>THE BATMAN</Text>
+                    <Text style={styles.usernameText}>{profile.user.username}</Text>
                 </View>
             </View>
             <View style={styles.infoContainer}>
-                <Text style={styles.creditsText}>249800 crd</Text>
+                <Text style={styles.creditsText}>{profile.user.credits} credits</Text>
             </View>
             <View style={styles.infoContainer}>
                 <View>
                     <View style={styles.ships}>
                         <Image source={require('../assets/Ship_1.png')} />
-                        <Text style={styles.shipsText}>0</Text>
+                        <Text style={styles.shipsText}>{profile.user.shipCount}</Text>
                     </View>
                     <View style={styles.buildings}>
                         <Image source={require('../assets/mainbase.png')} style={{width: 30, height: 30}} />
-                        <Text style={styles.shipsText}>0</Text>
+                        <Text style={styles.shipsText}>{profile.user.structureCount}</Text>
                     </View>
                 </View>
             </View>
