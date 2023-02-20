@@ -16,7 +16,12 @@ export default function App() {
   return (
     <NavigationContainer>
       <Drawer.Navigator initialRouteName='Autenticacion'>
-        <Drawer.Screen name='Autenticacion' component={PantallaShips}/>
+        <Drawer.Screen name='Space Trader' component={PantallaAutenticacion}/>
+        <Drawer.Screen name='Iniciar sesión' component={PantallaLogin}/>
+        <Drawer.Screen name='Register' component={PantallaRegister}/>
+        <Drawer.Screen name='Profile' component={PantallaProfile}/>
+        <Drawer.Screen name='Loans' component={PantallaLoans}/>
+        <Drawer.Screen name='Ships' component={PantallaShips}/>
       </Drawer.Navigator>
     </NavigationContainer>
   );
