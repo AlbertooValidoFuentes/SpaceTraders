@@ -3,8 +3,6 @@ import { useEffect, useState } from 'react'
 import { getUserProfile } from "../service/spaceTraders";
 
 export default function PantallaProfile() {
-
-
     const [profile, setProfile] = useState({})
 
     useEffect(() => {
