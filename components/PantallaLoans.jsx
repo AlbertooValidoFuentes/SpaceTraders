@@ -1,23 +1,32 @@
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, FlatList } from "react-native";
+import { useEffect, useState } from 'react'
+import { getAvailableLoans } from "../service/spaceTraders";
+import TarjetaLoans from "./TarjetaLoans";
 
 
 export default function PantallaLoans() {
+    const [loans, setLoans] = useState({})
+
+    useEffect(() => {
+        const fetchLoans = async () => {
+            const availableLoans = await getAvailableLoans()
+            setLoans(availableLoans)
+        }
+        fetchLoans()
+    }, [])
+
     return (
         <View style={styles.container}>
-            <View style={styles.userInfo}>
-                <View style={styles.username}>
-                    <Text style={styles.usernameText}>Available Loans</Text>
-                </View>
+            <View style={styles.loanInfo}>
+                    <Text style={styles.loanText}>Available Loans</Text>
             </View>
-            <View style={styles.infoContainer}>
-                <Text style={styles.creditsText}>249800 crd</Text>
-                <Text style={styles.creditsText}>Rate: 40%</Text>
-                <Text style={styles.creditsText}>Term: 2 days</Text>
-                <Text style={styles.creditsText}>Type: Startup</Text>
-                <Pressable style={styles.button}>
-                    <Text style={styles.buttonText}>Take out</Text>
-                </Pressable>
-            </View>
+            <FlatList
+                data={loans?.loans}
+                renderItem={({ item }) => <TarjetaLoans credits={loans?.loans[0]?.amount} rate={loans.loans[0]?.rate} 
+                term={loans.loans[0]?.termInDays} type={loans.loans[0]?.type}/>}
+                keyExtractor={loans.loans?.type} 
+                style={styles.list}
+            />
         </View>
     );
 }
@@ -28,59 +37,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
     },
-    profileImage: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-        marginRight: 20
-    },
-    userInfo: {
+    loanInfo: {
         marginTop: 20,
         flexDirection: 'row'
     },
-    username: {
-        justifyContent: 'center',
-    },
-    usernameText: {
+    loanText: {
         fontSize: 30
     },
-    infoContainer: {
-        width: '90%',
-        backgroundColor: '#808080',
-        marginTop: 20,
-        borderRadius: 30,
-        padding: 20
-    },
-    creditsText: {
-        fontSize: 30,
-        color: 'white'
-    },
-    ships: {
-        flexDirection: 'row',
-
-    },
-    buildings: {
-        flexDirection: 'row',
-        marginTop: 20
-
-    },
-    shipsText: {
-        marginLeft: 10,
-        fontSize: 25,
-        color: 'white'
-    },
-    buttonText: {
-        color: 'white',
-        textAlign: 'center',
-        fontSize: 20
-
-    },
-    button: {
-        padding: 15,
-        width: 120,
-        backgroundColor: 'black',
-        marginBottom: 10,
-        borderRadius: 20,
-        marginTop: 20
-    },
+    list: {
+        width: '90%'
+    }
 });

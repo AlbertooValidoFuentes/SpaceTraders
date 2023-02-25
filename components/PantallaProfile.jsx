@@ -13,6 +13,7 @@ export default function PantallaProfile() {
         fetchUserAccount()
     }, [])
 
+    console.log(profile);
     return (
         <View style={styles.container}>
             <View style={styles.userInfo}>
@@ -20,21 +21,21 @@ export default function PantallaProfile() {
                     <Image source={require('../assets/profileImage.png')} style={styles.profileImage} />
                 </View>
                 <View style={styles.username}>
-                    <Text style={styles.usernameText}>{profile.user.username}</Text>
+                    <Text style={styles.usernameText}>{profile.user?.username}</Text>
                 </View>
             </View>
             <View style={styles.infoContainer}>
-                <Text style={styles.creditsText}>{profile.user.credits} credits</Text>
+                <Text style={styles.creditsText}>{profile.user?.credits} credits</Text>
             </View>
             <View style={styles.infoContainer}>
                 <View>
                     <View style={styles.ships}>
                         <Image source={require('../assets/Ship_1.png')} />
-                        <Text style={styles.shipsText}>{profile.user.shipCount}</Text>
+                        <Text style={styles.shipsText}>{profile.user?.shipCount}</Text>
                     </View>
                     <View style={styles.buildings}>
                         <Image source={require('../assets/mainbase.png')} style={{width: 30, height: 30}} />
-                        <Text style={styles.shipsText}>{profile.user.structureCount}</Text>
+                        <Text style={styles.shipsText}>{profile.user?.structureCount}</Text>
                     </View>
                 </View>
             </View>
