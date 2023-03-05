@@ -21,6 +21,8 @@ export const getUserProfile = async () => {
     }
 }
 
+
+
 export const getAvailableLoans = async () => {
     try {
         const response = await fetch(endpoints.getAvailableLoans)

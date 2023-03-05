@@ -8,20 +8,38 @@ import PantallaRegister from './components/PantallaRegister';
 import PantallaProfile from './components/PantallaProfile';
 import PantallaLoans from './components/PantallaLoans';
 import PantallaShips from './components/PantallaShips';
+import * as SecureStorage from "expo-secure-store";
+import { useState } from 'react';
 
 const Drawer = createDrawerNavigator()
 
 export default function App() {
+  const [login, setlogin] = useState(false)
+
+
+  const saveUserToken = async (value, action) => {
+    await SecureStorage.setItemAsync('token', value);
+    setlogin(action)
+  }
 
   return (
     <NavigationContainer>
       <Drawer.Navigator initialRouteName='Autenticacion'>
-        <Drawer.Screen name='Space Trader' component={PantallaAutenticacion}/>
-        <Drawer.Screen name='Iniciar sesión' component={PantallaLogin}/>
-        <Drawer.Screen name='Register' component={PantallaRegister}/>
-        <Drawer.Screen name='Profile' component={PantallaProfile}/>
-        <Drawer.Screen name='Loans' component={PantallaLoans}/>
-        <Drawer.Screen name='Ships' component={PantallaShips}/>
+        {
+          login ? (
+            <>
+              <Drawer.Screen name='Profile' component={PantallaProfile} />
+              <Drawer.Screen name='Loans' component={PantallaLoans} />
+              <Drawer.Screen name='Ships' component={PantallaShips} />
+            </>
+          ) : (
+            <>
+              <Drawer.Screen name="Iniciar sesion">{() => <PantallaLogin saveUserToken={saveUserToken} />}</Drawer.Screen>
+
+              <Drawer.Screen name='Registrarse' component={PantallaRegister} />
+            </>
+          )
+        }
       </Drawer.Navigator>
     </NavigationContainer>
   );
