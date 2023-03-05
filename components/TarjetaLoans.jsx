@@ -1,20 +1,29 @@
 import { useEffect } from "react";
 import { View, Text, StyleSheet, Pressable, FlatList } from "react-native";
 import { takeOutLoan } from "../service/spaceTraders";
+import { useNavigation } from "@react-navigation/native";
 
 
+export default function TarjetaLoans({credits, rate, term, type, userToken}) {
+    const navigation = useNavigation();
 
-export default function TarjetaLoans({credits, rate, term, type}) {
-
-    const takeOut = (type) => {
-        useEffect(() => {
-            const fetchTakeOut = async () => {
-            const response = await takeOutLoan(type)
-            console.log(response);
-            }
-            fetchTakeOut()
-        }, [])
-    }
+    const handleTakeOut = () => {
+        fetch(`https://api.spacetraders.io/my/loans?token=${userToken}&type=${type}`, {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+                Accept: "application/json",
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.error) {
+                    alert("Only one loan allowed at a time");
+                }
+                navigation.navigate("Profile");
+            })
+            .catch((err) => console.log(err));
+    };
 
     return (
         <View style={styles.infoContainer}>
@@ -22,7 +31,7 @@ export default function TarjetaLoans({credits, rate, term, type}) {
             <Text style={styles.creditsText}>Rate: {rate}%</Text>
             <Text style={styles.creditsText}>Term: {term} days</Text>
             <Text style={styles.creditsText}>Type: {type}</Text>
-            <Pressable style={styles.button} onPress={takeOut}>
+            <Pressable style={styles.button} onPress={handleTakeOut}>
                 <Text style={styles.buttonText}>Take out</Text>
             </Pressable>
         </View>

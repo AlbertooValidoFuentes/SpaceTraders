@@ -29,7 +29,7 @@ export default function PantallaLoans({userToken}) {
             <FlatList
                 data={loans?.loans}
                 renderItem={({ item }) => <TarjetaLoans credits={loans.loans[0]?.amount} rate={loans.loans[0]?.rate} 
-                term={loans.loans[0]?.termInDays} type={loans.loans[0]?.type}/>}
+                term={loans.loans[0]?.termInDays} type={loans.loans[0]?.type} userToken={userToken}/>}
                 keyExtractor={loans.type} 
                 style={styles.list}
             />
