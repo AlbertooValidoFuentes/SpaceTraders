@@ -19,6 +19,7 @@ export default function PantallaProfile({userToken}) {
         fetchUserAccount()
     }, [])
 
+
     console.log(profile);
     return (
         <View style={styles.container}>
