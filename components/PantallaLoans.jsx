@@ -1,6 +1,5 @@
 import { View, Text, StyleSheet, FlatList } from "react-native";
 import { useEffect, useState } from 'react'
-import { getAvailableLoans } from "../service/spaceTraders";
 import TarjetaLoans from "./TarjetaLoans";
 
 

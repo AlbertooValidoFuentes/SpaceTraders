@@ -1,12 +1,35 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
+import { useState } from "react";
 
-export default function PantallaRegister() {
+export default function PantallaRegister({saveUserToken}) {
+    const [inputText, setInputText] = useState("");
+
+    const handleOnClickRegister = () => {
+        fetch(`https://api.spacetraders.io/users/${inputText}/claim`, {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+                Accept: "application/json",
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.error) {
+                    alert("Invalid nickname, please introduce other");
+                } else {
+                    saveUserToken(data.token, true);
+                }
+            })
+            .catch((err) => console.log(err));
+    };
+
+
     return (
         <View style={styles.container}>
             <Text style={styles.tokenText}>Please, select your NickName</Text>
-            <TextInput placeholder="Introduce your nickname" style={styles.inputToken}/>
-            <Pressable style={styles.button}>
+            <TextInput placeholder="Introduce your nickname" style={styles.inputToken} onChangeText={(text) => setInputText(text)}/>
+            <Pressable style={styles.button} onPress={handleOnClickRegister}>
                 <Text style={styles.buttonText}>Register</Text>
             </Pressable>
         </View>

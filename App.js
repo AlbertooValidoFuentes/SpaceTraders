@@ -38,8 +38,7 @@ export default function App() {
           ) : (
             <>
               <Drawer.Screen name="Iniciar sesion">{() => <PantallaLogin saveUserToken={saveUserToken} />}</Drawer.Screen>
-
-              <Drawer.Screen name='Registrarse' component={PantallaRegister} />
+              <Drawer.Screen name="Registrarse">{() => <PantallaRegister saveUserToken={saveUserToken} />}</Drawer.Screen>
             </>
           )
         }

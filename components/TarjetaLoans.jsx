@@ -1,6 +1,4 @@
-import { useEffect } from "react";
 import { View, Text, StyleSheet, Pressable, FlatList } from "react-native";
-import { takeOutLoan } from "../service/spaceTraders";
 import { useNavigation } from "@react-navigation/native";
 
 

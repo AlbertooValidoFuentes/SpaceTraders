@@ -1,10 +1,9 @@
 import { View, Text, StyleSheet, Image } from "react-native";
 import { useEffect, useState } from 'react'
-import { getUserProfile } from "../service/spaceTraders";
 
 export default function PantallaProfile({userToken}) {
-    const [profile, setProfile] = useState({})
-
+    const [profile, setProfile] = useState({}) 
+    3
     useEffect(() => {
         const fetchUserAccount = async () => {
             fetch(`https://api.spacetraders.io/my/account?token=${userToken}`)
