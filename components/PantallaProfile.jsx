@@ -2,13 +2,19 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import { useEffect, useState } from 'react'
 import { getUserProfile } from "../service/spaceTraders";
 
-export default function PantallaProfile() {
+export default function PantallaProfile({userToken}) {
     const [profile, setProfile] = useState({})
 
     useEffect(() => {
         const fetchUserAccount = async () => {
-            const userProfile = await getUserProfile()
-            setProfile(userProfile)
+            fetch(`https://api.spacetraders.io/my/account?token=${userToken}`)
+                .then((res) => res.json())
+                .then((data) => {
+                    if (data.user) {
+                        setProfile(data.user);
+                    }
+                })
+                .catch((err) => console.log(err));
         }
         fetchUserAccount()
     }, [])
@@ -21,21 +27,21 @@ export default function PantallaProfile() {
                     <Image source={require('../assets/profileImage.png')} style={styles.profileImage} />
                 </View>
                 <View style={styles.username}>
-                    <Text style={styles.usernameText}>{profile.user?.username}</Text>
+                    <Text style={styles.usernameText}>{profile?.username}</Text>
                 </View>
             </View>
             <View style={styles.infoContainer}>
-                <Text style={styles.creditsText}>{profile.user?.credits} credits</Text>
+                <Text style={styles.creditsText}>{profile?.credits} credits</Text>
             </View>
             <View style={styles.infoContainer}>
                 <View>
                     <View style={styles.ships}>
                         <Image source={require('../assets/Ship_1.png')} />
-                        <Text style={styles.shipsText}>{profile.user?.shipCount}</Text>
+                        <Text style={styles.shipsText}>{profile?.shipCount}</Text>
                     </View>
                     <View style={styles.buildings}>
                         <Image source={require('../assets/mainbase.png')} style={{width: 30, height: 30}} />
-                        <Text style={styles.shipsText}>{profile.user?.structureCount}</Text>
+                        <Text style={styles.shipsText}>{profile?.structureCount}</Text>
                     </View>
                 </View>
             </View>
