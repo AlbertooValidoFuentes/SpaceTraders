@@ -4,16 +4,22 @@ import { getAvailableLoans } from "../service/spaceTraders";
 import TarjetaLoans from "./TarjetaLoans";
 
 
-export default function PantallaLoans() {
+export default function PantallaLoans({userToken}) {
     const [loans, setLoans] = useState({})
 
     useEffect(() => {
         const fetchLoans = async () => {
-            const availableLoans = await getAvailableLoans()
-            setLoans(availableLoans)
+            fetch(`https://api.spacetraders.io/types/loans?token=${userToken}`)
+            .then((res) => res.json())
+            .then((data) => {
+                setLoans(data);
+            })
+            .catch((err) => console.log(err));
         }
         fetchLoans()
     }, [])
+
+    console.log(loans)
 
     return (
         <View style={styles.container}>
@@ -22,9 +28,9 @@ export default function PantallaLoans() {
             </View>
             <FlatList
                 data={loans?.loans}
-                renderItem={({ item }) => <TarjetaLoans credits={loans?.loans[0]?.amount} rate={loans.loans[0]?.rate} 
+                renderItem={({ item }) => <TarjetaLoans credits={loans.loans[0]?.amount} rate={loans.loans[0]?.rate} 
                 term={loans.loans[0]?.termInDays} type={loans.loans[0]?.type}/>}
-                keyExtractor={loans.loans?.type} 
+                keyExtractor={loans.type} 
                 style={styles.list}
             />
         </View>

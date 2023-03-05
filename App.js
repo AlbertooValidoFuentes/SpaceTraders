@@ -30,7 +30,7 @@ export default function App() {
           login ? (
             <>
               <Drawer.Screen name="Profile">{() => <PantallaProfile userToken={userToken} />}</Drawer.Screen>
-              <Drawer.Screen name='Loans' component={PantallaLoans} />
+              <Drawer.Screen name="Loans">{() => <PantallaLoans userToken={userToken} />}</Drawer.Screen>
               <Drawer.Screen name='Ships' component={PantallaShips} />
             </>
           ) : (
