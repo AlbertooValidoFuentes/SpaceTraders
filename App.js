@@ -11,6 +11,7 @@ import PantallaShips from './components/PantallaShips';
 import * as SecureStorage from "expo-secure-store";
 import { useState } from 'react';
 import Logout from './components/Logout';
+import PantallaGoods from './components/PantallaGoods';
 
 const Drawer = createDrawerNavigator()
 
@@ -33,6 +34,7 @@ export default function App() {
               <Drawer.Screen name="Profile">{() => <PantallaProfile userToken={userToken} />}</Drawer.Screen>
               <Drawer.Screen name="Loans">{() => <PantallaLoans userToken={userToken} />}</Drawer.Screen>
               <Drawer.Screen name='Ships' component={PantallaShips} />
+              <Drawer.Screen name="Goods">{() => <PantallaGoods userToken={userToken}/>}</Drawer.Screen>
               <Drawer.Screen name="Logout">{() => <Logout saveUserToken={saveUserToken} />}</Drawer.Screen>
             </>
           ) : (

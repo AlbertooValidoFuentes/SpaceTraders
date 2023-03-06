@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 
 export default function PantallaProfile({userToken}) {
     const [profile, setProfile] = useState({}) 
-    3
+    
     useEffect(() => {
         const fetchUserAccount = async () => {
             fetch(`https://api.spacetraders.io/my/account?token=${userToken}`)
@@ -17,7 +17,6 @@ export default function PantallaProfile({userToken}) {
         }
         fetchUserAccount()
     }, [])
-
 
     console.log(profile);
     return (
