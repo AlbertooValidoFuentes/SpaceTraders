@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Pressable, FlatList } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 
-export default function TarjetaLoans({credits, rate, term, type, userToken}) {
+export default function TarjetaLoans({ credits, rate, term, type, userToken }) {
     const navigation = useNavigation();
 
     const handleTakeOut = () => {

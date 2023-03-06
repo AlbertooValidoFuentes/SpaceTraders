@@ -9,7 +9,7 @@ import PantallaProfile from './components/PantallaProfile';
 import PantallaLoans from './components/PantallaLoans';
 import PantallaShips from './components/PantallaShips';
 import * as SecureStorage from "expo-secure-store";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Logout from './components/Logout';
 import PantallaGoods from './components/PantallaGoods';
 
@@ -25,6 +25,19 @@ export default function App() {
     setUserToken(value)
   }
 
+  async function getValueFor() {
+    const result = await SecureStorage.getItemAsync('token');
+    if (result) {
+      setUserToken(result)
+      setlogin(true)
+    }
+  }
+
+  useEffect(() => {
+    getValueFor()
+  })
+
+
   return (
     <NavigationContainer>
       <Drawer.Navigator initialRouteName='Autenticacion'>
@@ -34,13 +47,13 @@ export default function App() {
               <Drawer.Screen name="Profile">{() => <PantallaProfile userToken={userToken} />}</Drawer.Screen>
               <Drawer.Screen name="Loans">{() => <PantallaLoans userToken={userToken} />}</Drawer.Screen>
               <Drawer.Screen name='Ships' component={PantallaShips} />
-              <Drawer.Screen name="Goods">{() => <PantallaGoods userToken={userToken}/>}</Drawer.Screen>
+              <Drawer.Screen name="Goods">{() => <PantallaGoods userToken={userToken} />}</Drawer.Screen>
               <Drawer.Screen name="Logout">{() => <Logout saveUserToken={saveUserToken} />}</Drawer.Screen>
             </>
           ) : (
             <>
-              <Drawer.Screen name="Iniciar sesion">{() => <PantallaLogin saveUserToken={saveUserToken} />}</Drawer.Screen>
-              <Drawer.Screen name="Registrarse">{() => <PantallaRegister saveUserToken={saveUserToken} />}</Drawer.Screen>
+              <Drawer.Screen name="Log in">{() => <PantallaLogin saveUserToken={saveUserToken} />}</Drawer.Screen>
+              <Drawer.Screen name="Sign in">{() => <PantallaRegister saveUserToken={saveUserToken} />}</Drawer.Screen>
             </>
           )
         }

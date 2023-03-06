@@ -1,11 +1,13 @@
 import { View, Text, StyleSheet, Image } from "react-native";
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import { useFocusEffect } from "@react-navigation/native";
 
-export default function PantallaProfile({userToken}) {
-    const [profile, setProfile] = useState({}) 
-    
-    useEffect(() => {
-        const fetchUserAccount = async () => {
+export default function PantallaProfile({ userToken }) {
+    const [profile, setProfile] = useState({})
+    console.log(userToken);
+
+    useFocusEffect(
+        useCallback(() => {
             fetch(`https://api.spacetraders.io/my/account?token=${userToken}`)
                 .then((res) => res.json())
                 .then((data) => {
@@ -14,11 +16,9 @@ export default function PantallaProfile({userToken}) {
                     }
                 })
                 .catch((err) => console.log(err));
-        }
-        fetchUserAccount()
-    }, [])
+        }, [userToken])
+    )
 
-    console.log(profile);
     return (
         <View style={styles.container}>
             <View style={styles.userInfo}>
@@ -30,6 +30,10 @@ export default function PantallaProfile({userToken}) {
                 </View>
             </View>
             <View style={styles.infoContainer}>
+                <Text style={styles.creditsText}>Your token:</Text>
+                <Text style={styles.creditsText}>{userToken}</Text>
+            </View>
+            <View style={styles.infoContainer}>
                 <Text style={styles.creditsText}>{profile?.credits} credits</Text>
             </View>
             <View style={styles.infoContainer}>
@@ -39,7 +43,7 @@ export default function PantallaProfile({userToken}) {
                         <Text style={styles.shipsText}>{profile?.shipCount}</Text>
                     </View>
                     <View style={styles.buildings}>
-                        <Image source={require('../assets/mainbase.png')} style={{width: 30, height: 30}} />
+                        <Image source={require('../assets/mainbase.png')} style={{ width: 30, height: 30 }} />
                         <Text style={styles.shipsText}>{profile?.structureCount}</Text>
                     </View>
                 </View>
@@ -77,7 +81,8 @@ const styles = StyleSheet.create({
         marginTop: 20,
         borderRadius: 30,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        padding: 20
     },
     creditsText: {
         fontSize: 30,
